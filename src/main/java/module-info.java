@@ -1,8 +1,9 @@
-module com.example.texttospeech {
+module com.example.texttospeechgui {
     requires javafx.controls;
     requires javafx.fxml;
+    requires freetts;
 
 
-    opens com.example.texttospeech to javafx.fxml;
-    exports com.example.texttospeech;
+    opens com.example.texttospeechgui to javafx.fxml;
+    exports com.example.texttospeechgui;
 }
