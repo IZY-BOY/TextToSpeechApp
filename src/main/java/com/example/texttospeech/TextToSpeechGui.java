@@ -1,6 +1,7 @@
 package com.example.texttospeech;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -12,10 +13,11 @@ public class TextToSpeechGui extends Application {
 
     private static final int App_With = 375;
     private static final int App_Height = 475;
+
     @Override
     public void start(Stage stage) throws IOException {
         Scene scene = createScene();
-        stage.setTitle("Hello!");
+        stage.setTitle("TextToSpeech App");
         stage.setScene(scene);
         stage.show();
     }
@@ -23,8 +25,10 @@ public class TextToSpeechGui extends Application {
     private Scene createScene(){
         VBox box = new VBox();
 
-        Label TextToSpeechLabel = new Label("Text_To_Speech");
-        box.getChildren().add(TextToSpeechLabel);
+        Label textToSpeechLabel = new Label("Text_To_Speech");
+        textToSpeechLabel.setMaxWidth(Double.MAX_VALUE);
+        textToSpeechLabel.setAlignment(Pos.CENTER);
+        box.getChildren().add(textToSpeechLabel);
         return new Scene(box, App_With, App_Height);
     }
 
