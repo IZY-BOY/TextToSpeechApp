@@ -90,10 +90,12 @@ public class TextToSpeechGui extends Application {
     }
 
     private GridPane createSettingComponents(){
+        //initialise the gridPane.
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setPadding(new Insets(10, 0, 0, 0));
 
+        //set the labels
         Label voiceLabel = new Label("Voice");
         voiceLabel.getStyleClass().add("setting-label");
 
@@ -103,25 +105,39 @@ public class TextToSpeechGui extends Application {
         Label volumeLabel = new Label("Volume");
         volumeLabel.getStyleClass().add("setting-label");
 
+        //add the labels to their respective rows and columns in the gridPane.
         gridPane.add(voiceLabel, 0, 0);
         gridPane.add(rateLabel, 1, 0);
         gridPane.add(volumeLabel, 2, 0);
 
+        //align the labels horizontally to the center of their pane.
         GridPane.setHalignment(voiceLabel, HPos.CENTER);
         GridPane.setHalignment(rateLabel, HPos.CENTER);
         GridPane.setHalignment(volumeLabel, HPos.CENTER);
 
+        //initialise the combo-boxes
         voices = new ComboBox<>();
         voices.getItems().addAll(
                 TextToSpeechController.getVoices()
-        );
-        voices.setValue(voices.getItems().get(0));
-        voices.getStyleClass().add("combo-box-setting");
-        rates = new ComboBox<>();
-        rates.getStyleClass().add("combo-box-setting");
-        volume = new ComboBox<>();
-        volume.getStyleClass().add("combo-box-setting");
+        ); //imports items from the freetts module in the TextToSpeechController.java
+        voices.setValue(voices.getItems().getFirst()); //set the first value of the list as default
+        voices.getStyleClass().add("combo-box-setting"); //imports style from the style.css
 
+        rates = new ComboBox<>();
+        rates.getItems().addAll(
+                TextToSpeechController.getSpeedRates()
+        ); //imports items from the TextToSpeechController.java
+        rates.setValue(rates.getItems().get(2)); //set the third value of the list as default
+        rates.getStyleClass().add("combo-box-setting"); //imports style from the style.css
+
+        volume = new ComboBox<>();
+        volume.getItems().addAll(
+                TextToSpeechController.getVolumeLevels()
+        ); //imports items from the TextToSpeechController.java
+        volume.setValue(volume.getItems().get(1)); //set the second value of the list as default
+        volume.getStyleClass().add("combo-box-setting");//imports style from the style.css
+
+        //add the combo-boxes to their respective rows and columns in the gridPane.
         gridPane.add(voices, 0, 1);
         gridPane.add(rates, 1, 1);
         gridPane.add(volume, 2, 1);

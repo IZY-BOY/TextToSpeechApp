@@ -24,6 +24,10 @@
     -fx-background-color: red;
 }
 
+.combo-box-setting .list-cell{
+    -fx-text-fill: white;
+}
+
 .speak-btn{
     -fx-font-size:18px;
     -fx-font-weight: bold;
