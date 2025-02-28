@@ -32,13 +32,36 @@ public class TextToSpeechController {
         return speedRates;
     }
 
-    public static ArrayList<String> getVolumeLevels(){
+    public static ArrayList<String> getVolumesLevels(){
 
-        ArrayList<String> volumeLevels = new ArrayList<>();
+        ArrayList<String> volumesLevels = new ArrayList<>();
         for(int i = 1; i <= 10; i++){
-            volumeLevels.add(Integer.toString(i));
+            volumesLevels.add(Integer.toString(i));
         }
 
-        return volumeLevels;
+        return volumesLevels;
+    }
+
+    public static void speak(String message, String voiceType, String rate, String volume){
+        Voice voice = voiceManager.getVoice(voiceType);
+        if (voice == null){
+            System.err.println("cannot find voice: kevin16");
+            System.exit(1);
+        }
+
+        //allocate the resources for the voice
+        voice.allocate();
+
+        //set the speed at which the message will be spoken(words per minutes)
+        voice.setRate(Integer.parseInt(rate));
+
+        //set the volume(0-10)
+        voice.setVolume(Integer.parseInt(volume));
+
+        //convert text to speech
+        voice.speak(message);
+
+        //deallocate the message when done
+        voice.deallocate();
     }
 }

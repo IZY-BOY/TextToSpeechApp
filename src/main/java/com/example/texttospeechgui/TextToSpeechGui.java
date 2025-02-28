@@ -1,6 +1,8 @@
 package com.example.texttospeechgui;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -25,7 +27,7 @@ public class TextToSpeechGui extends Application {
     private static final int App_Height = 475;
 
     //private TextArea textArea;
-    private ComboBox<String>voices, rates, volume;
+    private ComboBox<String>voices, rates, volumes;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -60,6 +62,18 @@ public class TextToSpeechGui extends Application {
         box.getChildren().add(settingsPane);
 
         Button speakButton = createImageButton();
+        speakButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String msg = textArea.getText();
+                String voice = voices.getValue();
+                String rate = rates.getValue();
+                String volume = volumes.getValue();
+
+                TextToSpeechController.speak(msg, voice, rate, volume);
+            }
+
+        });
         StackPane speakButtonPane = new StackPane();
         speakButtonPane.setPadding(new Insets(30, 20, 0, 20));
         speakButtonPane.getChildren().add(speakButton);
@@ -130,17 +144,17 @@ public class TextToSpeechGui extends Application {
         rates.setValue(rates.getItems().get(2)); //set the third value of the list as default
         rates.getStyleClass().add("combo-box-setting"); //imports style from the style.css
 
-        volume = new ComboBox<>();
-        volume.getItems().addAll(
-                TextToSpeechController.getVolumeLevels()
+        volumes = new ComboBox<>();
+        volumes.getItems().addAll(
+                TextToSpeechController.getVolumesLevels()
         ); //imports items from the TextToSpeechController.java
-        volume.setValue(volume.getItems().get(1)); //set the second value of the list as default
-        volume.getStyleClass().add("combo-box-setting");//imports style from the style.css
+        volumes.setValue(volumes.getItems().get(1)); //set the second value of the list as default
+        volumes.getStyleClass().add("combo-box-setting");//imports style from the style.css
 
         //add the combo-boxes to their respective rows and columns in the gridPane.
         gridPane.add(voices, 0, 1);
         gridPane.add(rates, 1, 1);
-        gridPane.add(volume, 2, 1);
+        gridPane.add(volumes, 2, 1);
 
         gridPane.setAlignment(Pos.CENTER);
 
